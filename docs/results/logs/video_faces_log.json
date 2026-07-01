@@ -1,0 +1,13 @@
+{
+  "completed": [],
+  "failed": [
+    "train/real/158",
+    "train/fake/158_379",
+    "train/fake/231_663",
+    "val/fake/420_257"
+  ],
+  "no_face": [
+    "train/real/156",
+    "train/fake/156_243"
+  ]
+}
