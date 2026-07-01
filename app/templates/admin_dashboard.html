@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — DeepShield AI</title>
+    <link rel="icon" type="image/png" href="/static/images/logo.png" />
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#030712',
+                            card: '#0b1224',
+                            primary: '#6366f1',
+                            secondary: '#8b5cf6',
+                            border: 'rgba(255, 255, 255, 0.06)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #030712;
+            font-family: 'Manrope', 'Inter', sans-serif;
+        }
+
+        .glass {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-grid {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.005) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.4);
+        }
+    </style>
+</head>
+
+<body class="text-slate-300 min-h-screen flex flex-col hero-grid relative overflow-x-hidden">
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-[10%] left-[5%] w-[500px] h-[500px] bg-blue-600/5 blur-[150px] rounded-full"></div>
+        <div class="absolute bottom-[10%] right-[5%] w-[500px] h-[500px] bg-indigo-600/5 blur-[150px] rounded-full">
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header
+        class="w-full border-b border-white/5 bg-slate-950/40 backdrop-blur-md px-6 py-4 flex justify-between items-center z-20 relative">
+        <a href="/" class="flex items-center gap-3 group">
+            <div
+                class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg">
+                <i class="fa-solid fa-shield-halved text-white text-base"></i>
+            </div>
+            <span class="text-white font-extrabold text-xl tracking-tight">DeepShield <span
+                    class="text-indigo-400 text-xs font-mono font-medium ml-1">Admin</span></span>
+        </a>
+        <div class="flex items-center gap-4">
+            <span class="text-xs font-mono text-slate-500 bg-white/5 border border-white/5 rounded-full px-3 py-1">ADMIN
+                PORTAL</span>
+            <a href="/"
+                class="text-xs text-slate-400 hover:text-white transition font-medium flex items-center gap-1.5">
+                <i class="fa-solid fa-house"></i> Home Dashboard
+            </a>
+            <a href="/logout"
+                class="text-xs text-red-400 hover:text-red-300 transition font-medium border border-red-500/20 bg-red-500/10 px-3 py-1 rounded-lg">
+                Log Out
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="flex-1 w-full max-w-7xl mx-auto px-6 py-8 relative z-10 flex flex-col gap-6">
+        <!-- Title bar -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h1 class="text-white text-3xl font-black tracking-tight flex items-center gap-2.5">
+                    Security & User Directory
+                </h1>
+                <p class="text-slate-400 text-sm mt-0.5">Manage enterprise accounts, audit security logs, and monitor
+                    authentication history.</p>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="switchTab('users')" id="tabBtn-users"
+                    class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold font-mono tracking-wider uppercase border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 transition-all duration-300">
+                    <i class="fa-solid fa-users mr-1.5"></i> Accounts
+                </button>
+                <button onclick="switchTab('history')" id="tabBtn-history"
+                    class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold font-mono tracking-wider uppercase border border-white/5 hover:border-white/10 text-slate-400 hover:text-white transition-all duration-300">
+                    <i class="fa-solid fa-history mr-1.5"></i> Login History
+                </button>
+                <button onclick="switchTab('logs')" id="tabBtn-logs"
+                    class="tab-btn px-4 py-2.5 rounded-xl text-xs font-bold font-mono tracking-wider uppercase border border-white/5 hover:border-white/10 text-slate-400 hover:text-white transition-all duration-300">
+                    <i class="fa-solid fa-file-shield mr-1.5"></i> Security Logs
+                </button>
+            </div>
+        </div>
+
+        <!-- Global Message Alerts -->
+        <div id="alertContainer" class="hidden p-4 rounded-xl text-sm border transition-all duration-300"></div>
+
+        <!-- TAB CONTENT: Users -->
+        <div id="tab-users" class="tab-content space-y-6">
+            <!-- Filtering Header Card -->
+            <div class="glass rounded-2xl p-4 flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="relative w-full md:max-w-md">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+                        <i class="fa-solid fa-search"></i>
+                    </span>
+                    <input type="text" id="searchInput" oninput="loadUsers()"
+                        class="block w-full pl-10 pr-4 py-2 bg-[#0B1220] border border-[#1F2937] rounded-xl text-white text-xs focus:outline-none focus:border-indigo-500 transition duration-200"
+                        placeholder="Search users by name or email...">
+                </div>
+
+                <div class="flex gap-2 w-full md:w-auto shrink-0 justify-end">
+                    <span class="text-xs text-slate-550 self-center font-mono uppercase mr-2">Filter:</span>
+                    <select id="statusFilter" onchange="loadUsers()"
+                        class="px-3 py-2 bg-[#0B1220] border border-[#1F2937] rounded-xl text-white text-xs focus:outline-none focus:border-indigo-500">
+                        <option value="all">All Accounts</option>
+                        <option value="verified">Verified & Active</option>
+                        <option value="unverified">Unverified Accounts</option>
+                        <option value="disabled">Suspended Accounts</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Users Table Card -->
+            <div class="glass rounded-2xl border border-white/5 overflow-hidden">
+                <div class="overflow-x-auto custom-scrollbar">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr
+                                class="border-b border-white/5 bg-white/[0.02] text-slate-400 font-mono font-bold uppercase tracking-wider">
+                                <th class="p-4">Full Name</th>
+                                <th class="p-4">Email Address</th>
+                                <th class="p-4">Registration Date</th>
+                                <th class="p-4 text-center">Verified</th>
+                                <th class="p-4 text-center">Status</th>
+                                <th class="p-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr>
+                                <td colspan="6" class="p-8 text-center text-slate-500 font-mono uppercase">
+                                    <i class="fa-solid fa-circle-notch animate-spin mr-2"></i>Loading Directory...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: Login History -->
+        <div id="tab-history" class="tab-content hidden space-y-4">
+            <div class="glass rounded-2xl border border-white/5 overflow-hidden">
+                <div class="p-4 bg-white/[0.01] border-b border-white/5 flex justify-between items-center">
+                    <h3 class="text-white font-bold text-sm">Authentication Logs (Last 100)</h3>
+                    <button onclick="loadLoginHistory()"
+                        class="text-xs text-indigo-400 hover:text-indigo-300 font-mono"><i
+                            class="fa-solid fa-sync mr-1"></i> Refresh</button>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar max-h-[600px]">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr
+                                class="border-b border-white/5 bg-white/[0.02] text-slate-400 font-mono font-bold uppercase tracking-wider">
+                                <th class="p-4">Account Email</th>
+                                <th class="p-4">IP Address</th>
+                                <th class="p-4">Device Metadata</th>
+                                <th class="p-4">Status</th>
+                                <th class="p-4">Lockout Reason</th>
+                                <th class="p-4">Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <tr>
+                                <td colspan="6" class="p-8 text-center text-slate-500 font-mono uppercase">
+                                    <i class="fa-solid fa-circle-notch animate-spin mr-2"></i>Loading logs...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB CONTENT: Security Logs -->
+        <div id="tab-logs" class="tab-content hidden space-y-4">
+            <div class="glass rounded-2xl border border-white/5 overflow-hidden">
+                <div class="p-4 bg-white/[0.01] border-b border-white/5 flex justify-between items-center">
+                    <h3 class="text-white font-bold text-sm">Audit Trail Security Logs (Last 100)</h3>
+                    <button onclick="loadSecurityLogs()"
+                        class="text-xs text-indigo-400 hover:text-indigo-300 font-mono"><i
+                            class="fa-solid fa-sync mr-1"></i> Refresh</button>
+                </div>
+                <div class="overflow-x-auto custom-scrollbar max-h-[600px]">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr
+                                class="border-b border-white/5 bg-white/[0.02] text-slate-400 font-mono font-bold uppercase tracking-wider">
+                                <th class="p-4">Action</th>
+                                <th class="p-4">Target Email</th>
+                                <th class="p-4">IP Address</th>
+                                <th class="p-4">Activity Description</th>
+                                <th class="p-4">Timestamp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logsTableBody">
+                            <tr>
+                                <td colspan="5" class="p-8 text-center text-slate-500 font-mono uppercase">
+                                    <i class="fa-solid fa-circle-notch animate-spin mr-2"></i>Loading logs...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        let activeTab = "users";
+
+        function switchTab(tabId) {
+            activeTab = tabId;
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.add("hidden"));
+            document.getElementById(`tab-${tabId}`).classList.remove("hidden");
+
+            // Update tab button styles
+            document.querySelectorAll(".tab-btn").forEach(btn => {
+                btn.className = "tab-btn px-4 py-2.5 rounded-xl text-xs font-bold font-mono tracking-wider uppercase border border-white/5 hover:border-white/10 text-slate-400 hover:text-white transition-all duration-300";
+            });
+            const activeBtn = document.getElementById(`tabBtn-${tabId}`);
+            activeBtn.className = "tab-btn px-4 py-2.5 rounded-xl text-xs font-bold font-mono tracking-wider uppercase border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 transition-all duration-300";
+
+            if (tabId === "users") loadUsers();
+            else if (tabId === "history") loadLoginHistory();
+            else if (tabId === "logs") loadSecurityLogs();
+        }
+
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById("alertContainer");
+            alertContainer.textContent = message;
+            alertContainer.className = "mb-4 p-4 rounded-xl text-sm border transition-all duration-300";
+
+            if (type === "success") {
+                alertContainer.classList.add("bg-emerald-950/30", "border-emerald-500/30", "text-emerald-400");
+            } else {
+                alertContainer.classList.add("bg-red-950/30", "border-red-500/30", "text-red-400");
+            }
+            alertContainer.classList.remove("hidden");
+
+            // Auto dismiss alert
+            setTimeout(() => {
+                alertContainer.classList.add("hidden");
+            }, 5000);
+        }
+
+        // --- Load Users list ---
+        async function loadUsers() {
+            const search = document.getElementById("searchInput").value;
+            const status = document.getElementById("statusFilter").value;
+            const tbody = document.getElementById("usersTableBody");
+
+            try {
+                const response = await fetch("/api/admin/users", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-Token": csrfToken
+                    },
+                    body: JSON.stringify({ search, status })
+                });
+
+                const data = await response.json();
+                if (response.ok && data.success) {
+                    if (data.users.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-550 font-mono uppercase">No records match criteria.</td></tr>`;
+                        return;
+                    }
+
+                    tbody.innerHTML = data.users.map(u => {
+                        const verifiedBadge = u.email_verified
+                            ? `<span class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-semibold">VERIFIED</span>`
+                            : `<span class="px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[10px] font-semibold">PENDING</span>`;
+
+                        const statusBadge = u.disabled
+                            ? `<span class="px-2.5 py-0.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-[10px] font-semibold">SUSPENDED</span>`
+                            : `<span class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-semibold">ACTIVE</span>`;
+
+                        const btnText = u.disabled ? "Activate" : "Suspend";
+                        const btnColor = u.disabled ? "text-emerald-400 hover:text-emerald-300" : "text-red-400 hover:text-red-300";
+
+                        return `
+                            <tr class="border-b border-white/5 hover:bg-white/[0.01] transition-all">
+                                <td class="p-4 font-semibold text-white">${u.fullname}</td>
+                                <td class="p-4 font-mono">${u.email}</td>
+                                <td class="p-4 text-slate-450">${u.created_at}</td>
+                                <td class="p-4 text-center">${verifiedBadge}</td>
+                                <td class="p-4 text-center">${statusBadge}</td>
+                                <td class="p-4 text-right">
+                                    <button onclick="toggleUserStatus(${u.id})" class="text-xs font-bold font-mono uppercase tracking-wider ${btnColor} bg-white/5 border border-white/5 px-2.5 py-1.5 rounded-lg transition duration-200">
+                                        ${btnText}
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    }).join("");
+                } else {
+                    tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-red-400 font-mono">Failed to fetch users: ${data.error}</td></tr>`;
+                }
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-red-400 font-mono">Network error fetching data.</td></tr>`;
+            }
+        }
+
+        // --- Toggle User Status ---
+        async function toggleUserStatus(userId) {
+            try {
+                const response = await fetch(`/api/admin/users/${userId}/toggle-status`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-Token": csrfToken
+                    }
+                });
+
+                const data = await response.json();
+                if (response.ok && data.success) {
+                    showAlert(data.message, "success");
+                    loadUsers();
+                } else {
+                    showAlert(data.error || "Failed to update account status.", "error");
+                }
+            } catch (err) {
+                showAlert("Network error updating status.", "error");
+            }
+        }
+
+        // --- Load Login History ---
+        async function loadLoginHistory() {
+            const tbody = document.getElementById("historyTableBody");
+            try {
+                const response = await fetch("/api/admin/login-history", {
+                    headers: {
+                        "X-CSRF-Token": csrfToken
+                    }
+                });
+
+                const data = await response.json();
+                if (response.ok && data.success) {
+                    if (data.history.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-slate-550 font-mono uppercase">No login history recorded.</td></tr>`;
+                        return;
+                    }
+
+                    tbody.innerHTML = data.history.map(h => {
+                        const statusClass = h.status === "success" ? "text-emerald-400 font-bold" : "text-red-400 font-bold";
+                        return `
+                            <tr class="border-b border-white/5 hover:bg-white/[0.01] transition-all">
+                                <td class="p-4 font-semibold text-white">${h.email}</td>
+                                <td class="p-4 font-mono text-slate-450">${h.ip_address}</td>
+                                <td class="p-4 text-slate-450 max-w-xs truncate" title="${h.device_info}">${h.device_info}</td>
+                                <td class="p-4 font-mono uppercase ${statusClass}">${h.status}</td>
+                                <td class="p-4 font-mono text-amber-500">${h.reason || '—'}</td>
+                                <td class="p-4 text-slate-450">${h.created_at}</td>
+                            </tr>
+                        `;
+                    }).join("");
+                } else {
+                    tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-red-400 font-mono">Failed to fetch login history.</td></tr>`;
+                }
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-8 text-center text-red-400 font-mono">Network error fetching login history.</td></tr>`;
+            }
+        }
+
+        // --- Load Security Logs ---
+        async function loadSecurityLogs() {
+            const tbody = document.getElementById("logsTableBody");
+            try {
+                const response = await fetch("/api/admin/logs", {
+                    headers: {
+                        "X-CSRF-Token": csrfToken
+                    }
+                });
+
+                const data = await response.json();
+                if (response.ok && data.success) {
+                    if (data.logs.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-slate-550 font-mono uppercase">No audit trail logged.</td></tr>`;
+                        return;
+                    }
+
+                    tbody.innerHTML = data.logs.map(l => {
+                        return `
+                            <tr class="border-b border-white/5 hover:bg-white/[0.01] transition-all">
+                                <td class="p-4"><span class="px-2 py-0.5 rounded bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold font-mono uppercase">${l.action}</span></td>
+                                <td class="p-4 font-mono">${l.email || 'System'}</td>
+                                <td class="p-4 font-mono text-slate-450">${l.ip_address}</td>
+                                <td class="p-4 text-slate-400">${l.details}</td>
+                                <td class="p-4 text-slate-450">${l.created_at}</td>
+                            </tr>
+                        `;
+                    }).join("");
+                } else {
+                    tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-red-400 font-mono">Failed to fetch security logs.</td></tr>`;
+                }
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-red-400 font-mono">Network error fetching security logs.</td></tr>`;
+            }
+        }
+
+        // Load active tab initially
+        window.addEventListener("DOMContentLoaded", () => {
+            loadUsers();
+        });
+    </script>
+</body>
+
+</html>

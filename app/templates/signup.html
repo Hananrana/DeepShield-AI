@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account — DeepShield AI</title>
+    <link rel="icon" type="image/png" href="/static/images/logo.png" />
+    <link rel="stylesheet" href="/static/style.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        indigo: {
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        blue: {
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #030712;
+            font-family: 'Manrope', 'Inter', sans-serif;
+        }
+
+        .glass {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-grid {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.005) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        @keyframes logoPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 8px rgba(99, 102, 241, 0.2);
+                border-color: rgba(99, 102, 241, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+                border-color: rgba(99, 102, 241, 0.6);
+            }
+        }
+
+        .logo-pulse {
+            animation: logoPulse 3s infinite ease-in-out;
+        }
+
+        @keyframes shieldSpin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .shield-glow-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .shield-glow-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -3.5px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #3b82f6);
+            border-radius: 14px;
+            z-index: -1;
+            animation: shieldSpin 5s linear infinite;
+            filter: blur(5px);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body class="text-slate-300 h-full flex flex-col md:flex-row relative overflow-hidden hero-grid">
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-[20%] left-[10%] w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full"></div>
+        <div class="absolute bottom-[20%] right-[10%] w-[500px] h-[500px] bg-indigo-600/5 blur-[150px] rounded-full">
+        </div>
+    </div>
+
+    <!-- Left Column (Branding & Key Highlights) -->
+    <div
+        class="hidden md:flex md:w-1/2 flex-col justify-between p-16 relative z-10 border-r border-white/5 bg-slate-950/20 overflow-hidden">
+        <canvas id="neuralCanvas" class="absolute inset-0 z-0 pointer-events-none opacity-30"></canvas>
+        <div class="relative z-10">
+            <a href="/" class="flex items-center gap-3 group">
+                <div
+                    class="shield-glow-wrapper w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center shadow-[0_4px_15px_rgba(99,102,241,0.4)]">
+                    <i class="fa-solid fa-shield-halved text-white text-lg"></i>
+                </div>
+                <span class="text-white font-extrabold text-2xl tracking-tight">DeepShield</span>
+            </a>
+        </div>
+
+        <div class="my-auto space-y-8 max-w-lg">
+            <div class="space-y-4">
+                <span
+                    class="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-mono font-semibold uppercase tracking-wider">
+                    Enterprise Registration Portal
+                </span>
+                <h1 class="text-white text-4xl lg:text-5xl font-black leading-tight tracking-tight">
+                    Deploy AI-Powered Visual Security.
+                </h1>
+                <p class="text-slate-400 text-sm leading-relaxed font-sans">
+                    Join DeepShield to unlock advanced spatial, spectral, and explainable forensic algorithms. Establish
+                    verified chains of custody for visual media.
+                </p>
+            </div>
+
+            <!-- Feature highlights list -->
+            <div class="space-y-4">
+                <div
+                    class="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition duration-200">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 shrink-0">
+                        <i class="fa-solid fa-shield text-lg"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-sm">Next-Gen Compliance</h4>
+                        <p class="text-slate-500 text-xs mt-0.5">SOC-2 ready infrastructure with automated forensic
+                            reports for regulatory integrity checks.</p>
+                    </div>
+                </div>
+
+                <div
+                    class="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition duration-200">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 shrink-0">
+                        <i class="fa-solid fa-key text-lg"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-sm">Secure Portal Key</h4>
+                        <p class="text-slate-500 text-xs mt-0.5">Enforces strong password schemas to secure API
+                            integrations and deepfake search histories.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-xs text-slate-500 font-mono uppercase tracking-widest flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            All systems nominal • SOC-2 Ready
+        </div>
+    </div>
+
+    <!-- Right Column (Credentials Form) -->
+    <div class="w-full md:w-1/2 flex items-center justify-center p-8 relative z-10">
+        <!-- Back link for mobile -->
+        <a href="/"
+            class="absolute top-6 left-6 md:hidden flex items-center gap-2 text-slate-400 hover:text-white transition duration-200">
+            <i class="fa-solid fa-arrow-left"></i> <span class="text-xs font-mono uppercase tracking-wider">Back</span>
+        </a>
+
+        <div class="w-full max-w-md glass rounded-3xl p-8 shadow-2xl bg-[#070b14]/80">
+            <div class="flex flex-col items-center mb-8">
+                <div class="md:hidden mb-4">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center shadow-[0_4px_15px_rgba(99,102,241,0.4)]">
+                        <i class="fa-solid fa-shield-halved text-white text-lg"></i>
+                    </div>
+                </div>
+                <h2 class="text-white text-2xl font-bold tracking-tight">Enterprise Sign Up</h2>
+                <p class="text-slate-500 text-xs mt-1 font-mono uppercase tracking-wider">Create verification
+                    credentials</p>
+                </di <!-- Dynamic Alert Container -->
+                <div id="alertContainer" class="hidden mb-4 p-4 rounded-xl text-sm border transition-all duration-300">
+                </div>
+
+                <form id="signupForm" class="space-y-4">
+                    <!-- First Name & Last Name Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="first_name"
+                                class="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5">First
+                                Name</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+                                    <i class="fa-solid fa-user"></i>
+                                </span>
+                                <input type="text" name="first_name" id="first_name" required
+                                    class="block w-full pl-10 pr-4 py-2.5 bg-[#0B1220] border border-[#1F2937] rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200"
+                                    placeholder="John">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="last_name"
+                                class="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5">Last
+                                Name</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+                                    <i class="fa-solid fa-user"></i>
+                                </span>
+                                <input type="text" name="last_name" id="last_name" required
+                                    class="block w-full pl-10 pr-4 py-2.5 bg-[#0B1220] border border-[#1F2937] rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200"
+                                    placeholder="Doe">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div>
+                        <label for="phone_number"
+                            class="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5">Phone
+                            Number</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
+                            <input type="tel" name="phone_number" id="phone_number" required
+                                class="block w-full pl-10 pr-4 py-2.5 bg-[#0B1220] border border-[#1F2937] rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200"
+                                placeholder="+1 (555) 000-0000">
+                        </div>
+                    </div>
+
+                    <!-- Email Address -->
+                    <div>
+                        <label for="email"
+                            class="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5">Email
+                            Address</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>
+                            <input type="email" name="email" id="email" required
+                                class="block w-full pl-10 pr-4 py-2.5 bg-[#0B1220] border border-[#1F2937] rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200"
+                                placeholder="name@enterprise.com">
+                        </div>
+                    </div>
+
+                    <!-- Password & Confirm Password Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="password"
+                                class="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5">Password</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+                                    <i class="fa-solid fa-lock"></i>
+                                </span>
+                                <input type="password" name="password" id="password" required
+                                    oninput="checkPasswordStrength()"
+                                    class="block w-full pl-10 pr-10 py-2.5 bg-[#0B1220] border border-[#1F2937] rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200"
+                                    placeholder="••••••••">
+                                <button type="button" onclick="togglePasswordVisibility('password', 'passwordEye')"
+                                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-300">
+                                    <i class="fa-solid fa-eye" id="passwordEye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="confirm_password"
+                                class="block text-xs font-mono uppercase tracking-wider text-slate-400 mb-1.5">Confirm</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+                                    <i class="fa-solid fa-lock"></i>
+                                </span>
+                                <input type="password" name="confirm_password" id="confirm_password" required
+                                    class="block w-full pl-10 pr-10 py-2.5 bg-[#0B1220] border border-[#1F2937] rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition duration-200"
+                                    placeholder="••••••••">
+                                <button type="button"
+                                    onclick="togglePasswordVisibility('confirm_password', 'confirmPasswordEye')"
+                                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-500 hover:text-slate-300">
+                                    <i class="fa-solid fa-eye" id="confirmPasswordEye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Password Strength Visual Meter -->
+                    <div class="mt-2 space-y-1">
+                        <div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden flex gap-1">
+                            <div id="meter1" class="h-full bg-slate-800 flex-1 transition-all duration-300"></div>
+                            <div id="meter2" class="h-full bg-slate-800 flex-1 transition-all duration-300"></div>
+                            <div id="meter3" class="h-full bg-slate-800 flex-1 transition-all duration-300"></div>
+                        </div>
+                        <div class="flex justify-between items-center text-[10px] font-mono">
+                            <span id="strengthText" class="text-slate-500 uppercase">Input Password</span>
+                            <span class="text-slate-550">Min 8 chars, 1 upper, 1 special</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitBtn"
+                        class="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-sm tracking-wide transition-all duration-300 shadow-[0_4px_15px_rgba(99,102,241,0.2)] hover:shadow-[0_4px_25px_rgba(99,102,241,0.4)]">
+                        Register Credentials
+                    </button>
+                </form>
+
+                <!-- Social Signup Divider -->
+                <div class="relative flex py-4 items-center">
+                    <div class="flex-grow border-t border-white/5"></div>
+                    <span class="flex-shrink mx-4 text-[10px] font-mono text-slate-500 uppercase tracking-widest">Or
+                        Continue With</span>
+                    <div class="flex-grow border-t border-white/5"></div>
+                </div>
+
+                <!-- Social Signup Buttons -->
+                <div class="grid grid-cols-2 gap-4">
+                    <a href="/login/google"
+                        class="flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/15 hover:bg-white/10 text-white font-medium text-xs tracking-wide transition-all duration-300">
+                        <i class="fa-brands fa-google text-slate-400"></i>
+                        <span>Google</span>
+                    </a>
+                    <a href="/login/github"
+                        class="flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-xl bg-white/5 border border-white/5 hover:border-white/15 hover:bg-white/10 text-white font-medium text-xs tracking-wide transition-all duration-300">
+                        <i class="fa-brands fa-github text-slate-400"></i>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+
+                <div class="mt-6 text-center text-xs text-slate-500 font-medium">
+                    Already registered?
+                    <a href="/login" class="text-indigo-400 hover:text-indigo-300 transition font-semibold">Log In</a>
+                </div>
+
+                <div class="mt-6 pt-5 border-t border-white/5 flex flex-col items-center gap-2">
+                    <div
+                        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-mono font-semibold uppercase tracking-wider">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        94.4% Detection Accuracy
+                    </div>
+                    <div
+                        class="text-[9px] font-mono text-slate-500 uppercase tracking-widest text-center leading-relaxed">
+                        RGB + FFT Fusion • Research Validated
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function togglePasswordVisibility(inputId, eyeId) {
+                const pwdInput = document.getElementById(inputId || "password");
+                const eyeIcon = document.getElementById(eyeId || "passwordEye");
+                if (pwdInput.type === "password") {
+                    pwdInput.type = "text";
+                    eyeIcon.classList.remove("fa-eye");
+                    eyeIcon.classList.add("fa-eye-slash");
+                } else {
+                    pwdInput.type = "password";
+                    eyeIcon.classList.remove("fa-eye-slash");
+                    eyeIcon.classList.add("fa-eye");
+                }
+            }
+
+            let currentStrength = 0;
+
+            function checkPasswordStrength() {
+                const password = document.getElementById("password").value;
+                const meter1 = document.getElementById("meter1");
+                const meter2 = document.getElementById("meter2");
+                const meter3 = document.getElementById("meter3");
+                const strengthText = document.getElementById("strengthText");
+
+                // Reset meter
+                meter1.className = "h-full bg-slate-800 flex-1 transition-all duration-300";
+                meter2.className = "h-full bg-slate-800 flex-1 transition-all duration-300";
+                meter3.className = "h-full bg-slate-800 flex-1 transition-all duration-300";
+
+                if (password.length === 0) {
+                    strengthText.textContent = "Input Password";
+                    strengthText.className = "text-slate-500 uppercase";
+                    currentStrength = 0;
+                    return;
+                }
+
+                let score = 0;
+                const hasLength = password.length >= 8;
+                const hasUpper = /[A-Z]/.test(password);
+                const hasLower = /[a-z]/.test(password);
+                const hasDigit = /[0-9]/.test(password);
+                const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+                if (hasLength) score++;
+                if (hasUpper && hasLower) score++;
+                if (hasDigit && hasSpecial) score++;
+
+                // Require all 5 criteria for the maximum "Strong" score of 3
+                const isFullyCompliant = hasLength && hasUpper && hasLower && hasDigit && hasSpecial;
+
+                if (isFullyCompliant) {
+                    currentStrength = 3;
+                    meter1.className = "h-full bg-emerald-500 flex-1 transition-all duration-300";
+                    meter2.className = "h-full bg-emerald-500 flex-1 transition-all duration-300";
+                    meter3.className = "h-full bg-emerald-500 flex-1 transition-all duration-300";
+                    strengthText.textContent = "Strong (Secure)";
+                    strengthText.className = "text-emerald-500 font-bold uppercase";
+                } else if (score === 2) {
+                    currentStrength = 2;
+                    meter1.className = "h-full bg-amber-500 flex-1 transition-all duration-300";
+                    meter2.className = "h-full bg-amber-500 flex-1 transition-all duration-300";
+                    strengthText.textContent = "Medium (Moderate)";
+                    strengthText.className = "text-amber-500 font-bold uppercase";
+                } else {
+                    currentStrength = 1;
+                    meter1.className = "h-full bg-red-500 flex-1 transition-all duration-300";
+                    strengthText.textContent = "Weak (Unsafe)";
+                    strengthText.className = "text-red-500 font-bold uppercase";
+                }
+            }
+
+            function showAlert(message, type) {
+                const alertContainer = document.getElementById("alertContainer");
+                alertContainer.textContent = message;
+                alertContainer.classList.remove("hidden", "bg-emerald-950/30", "border-emerald-500/30", "text-emerald-400", "bg-red-950/30", "border-red-500/30", "text-red-400");
+
+                if (type === "success") {
+                    alertContainer.classList.add("bg-emerald-950/30", "border-emerald-500/30", "text-emerald-400");
+                } else {
+                    alertContainer.classList.add("bg-red-950/30", "border-red-500/30", "text-red-400");
+                }
+                alertContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            document.getElementById("signupForm").addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                const first_name = document.getElementById("first_name").value.trim();
+                const last_name = document.getElementById("last_name").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const phone_number = document.getElementById("phone_number").value.trim();
+                const password = document.getElementById("password").value;
+                const confirm_password = document.getElementById("confirm_password").value;
+                const submitBtn = document.getElementById("submitBtn");
+
+                // Client side validation
+                if (password !== confirm_password) {
+                    showAlert("Passwords do not match.", "error");
+                    return;
+                }
+
+                if (currentStrength < 3) {
+                    showAlert("Please select a stronger password (must meet all complexity requirements: 8+ chars, uppercase, lowercase, digit, and special characters).", "error");
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch animate-spin mr-2"></i>Registering...';
+
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                try {
+                    const response = await fetch("/api/signup", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-Token": csrfToken
+                        },
+                        body: JSON.stringify({
+                            first_name,
+                            last_name,
+                            email,
+                            phone_number,
+                            password,
+                            confirm_password
+                        })
+                    });
+
+                    const data = await response.json();
+                    if (response.ok && data.success) {
+                        showAlert(data.message || "Registration successful! Redirecting to verification...", "success");
+
+                        if (data.debug_otp) {
+                            setTimeout(() => {
+                                showAlert(`[SIMULATION] Verification OTP is: ${data.debug_otp}`, "success");
+                            }, 500);
+                        }
+
+                        setTimeout(() => {
+                            window.location.href = `/verify-otp?email=${encodeURIComponent(email)}`;
+                        }, 2500);
+                    } else {
+                        showAlert(data.error || "Registration failed.", "error");
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = "Register Credentials";
+                    }
+                } catch (err) {
+                    showAlert("Network error occurred. Please try again.", "error");
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "Register Credentials";
+                }
+            });
+
+            // --- NEURAL CANVAS CONNECTIONS ---
+            const canvas = document.getElementById('neuralCanvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let width = canvas.width = canvas.offsetWidth;
+                let height = canvas.height = canvas.offsetHeight;
+
+                window.addEventListener('resize', () => {
+                    width = canvas.width = canvas.offsetWidth;
+                    height = canvas.height = canvas.offsetHeight;
+                });
+
+                const particles = [];
+                const numParticles = 45;
+
+                for (let i = 0; i < numParticles; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        r: Math.random() * 2 + 1
+                    });
+                }
+
+                function draw() {
+                    ctx.clearRect(0, 0, width, height);
+                    ctx.fillStyle = 'rgba(99, 102, 241, 0.4)';
+                    ctx.strokeStyle = 'rgba(99, 102, 241, 0.08)';
+
+                    for (let i = 0; i < numParticles; i++) {
+                        const p = particles[i];
+                        p.x += p.vx;
+                        p.y += p.vy;
+
+                        if (p.x < 0 || p.x > width) p.vx *= -1;
+                        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                        ctx.fill();
+
+                        for (let j = i + 1; j < numParticles; j++) {
+                            const p2 = particles[j];
+                            const dx = p.x - p2.x;
+                            const dy = p.y - p2.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < 110) {
+                                ctx.beginPath();
+                                ctx.moveTo(p.x, p.y);
+                                ctx.lineTo(p2.x, p2.y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                    requestAnimationFrame(draw);
+                }
+                draw();
+            }
+        </script>
+        <script src="/static/js/main.js"></script>
+</body>
+
+</html>

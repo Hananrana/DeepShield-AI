@@ -216,3 +216,49 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# =====================================================
+# DeepShield AI Project
+# =====================================================
+
+# Environment
+app/.env
+.env
+
+# SQLite Databases
+*.db
+app/deepshield.db
+
+# Model Checkpoints
+*.pth
+*.pt
+*.ckpt
+*.onnx
+
+# Runtime Generated Files
+app/static/results/
+app/static/uploads/
+
+# Logs
+logs/
+*.log
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# OS Files
+Thumbs.db
+.DS_Store
+
+# Dataset (keep folder structure only)
+datasets/raw/
+datasets/processed/
+datasets/splits/
+
+# Large Training Outputs
+docs/results/models/

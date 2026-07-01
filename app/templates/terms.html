@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service — DeepShield AI</title>
+    <link rel="icon" type="image/png" href="/static/images/logo.png" />
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        indigo: {
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        blue: {
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #030712;
+            font-family: 'Manrope', 'Inter', sans-serif;
+        }
+        .glass {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+        .hero-grid {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.005) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+    </style>
+</head>
+<body class="text-slate-300 min-h-screen hero-grid relative py-12 px-6">
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-blue-600/5 blur-[140px] rounded-full"></div>
+        <div class="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] bg-indigo-600/5 blur-[140px] rounded-full"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto glass rounded-3xl p-8 sm:p-12 shadow-2xl relative z-10 bg-[#070b14]/80">
+        <div class="flex items-center justify-between border-b border-white/5 pb-6 mb-8">
+            <div class="flex items-center gap-3">
+                <a href="/">
+                    <img src="/static/images/logo.png" class="w-10 h-10 object-cover rounded-full shadow-lg border border-indigo-500/30 hover:border-indigo-400 transition-all duration-300" alt="DeepShield Logo">
+                </a>
+                <div>
+                    <h1 class="text-white font-bold text-xl tracking-tight flex items-center gap-1.5">
+                        DeepShield <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-mono text-[8px] font-semibold uppercase tracking-widest px-1.5 py-0.5 rounded-md">AI</span>
+                    </h1>
+                    <p class="text-[9px] tracking-[0.2em] text-slate-500 font-mono">AI Media Authenticity Platform</p>
+                </div>
+            </div>
+            <a href="/" class="text-xs text-indigo-400 hover:text-indigo-300 transition-colors duration-200 font-mono"><i class="fa-solid fa-arrow-left mr-2"></i>Return Home</a>
+        </div>
+
+        <div class="space-y-8 text-sm leading-relaxed">
+            <section class="space-y-3">
+                <h3 class="text-white font-bold text-base font-mono flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> 1. Terms of Use
+                </h3>
+                <p class="text-slate-400">
+                    DeepShield AI provides media verification interfaces for forensic analysis. Users agree to process only assets for which they retain appropriate legal evaluation authority. Computational reverse engineering, weights extraction, or distillation attempts targeting DeepShield neural network nodes are strictly prohibited.
+                </p>
+            </section>
+
+            <section class="space-y-3">
+                <h3 class="text-white font-bold text-base font-mono flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> 2. Model Performance & Accuracy
+                </h3>
+                <p class="text-slate-400">
+                    DeepShield AI models (Fusion RGB+FFT V2 and Xception+BiLSTM) generate statistical confidence weights indicating synthetic likelihood. While optimized for accuracy (94.4%), outputs represent localized evaluations of structural anomalies and should not be used as absolute legal proof of authenticity.
+                </p>
+            </section>
+
+            <section class="space-y-3">
+                <h3 class="text-white font-bold text-base font-mono flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> 3. Rate Limits & Abuse Prevention
+                </h3>
+                <p class="text-slate-400">
+                    Automated scraping of the dashboard or parallelized multi-stream ingestion without active API licenses is monitored and restricted. The platform reserves the right to isolate and terminate access to operational operational nodes for entities exhibiting high-frequency scraping behaviors.
+                </p>
+            </section>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

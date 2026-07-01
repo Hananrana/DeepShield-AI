@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Privacy & Controls — DeepShield AI</title>
+    <link rel="icon" type="image/png" href="/static/images/logo.png" />
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        indigo: {
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        blue: {
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #030712;
+            font-family: 'Manrope', 'Inter', sans-serif;
+        }
+        .glass {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+        .hero-grid {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.005) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+    </style>
+</head>
+<body class="text-slate-300 min-h-screen hero-grid relative py-12 px-6">
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-[10%] left-[10%] w-[500px] h-[500px] bg-blue-600/5 blur-[140px] rounded-full"></div>
+        <div class="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] bg-indigo-600/5 blur-[140px] rounded-full"></div>
+    </div>
+
+    <div class="max-w-4xl mx-auto glass rounded-3xl p-8 sm:p-12 shadow-2xl relative z-10 bg-[#070b14]/80">
+        <div class="flex items-center justify-between border-b border-white/5 pb-6 mb-8">
+            <div class="flex items-center gap-3">
+                <a href="/">
+                    <img src="/static/images/logo.png" class="w-10 h-10 object-cover rounded-full shadow-lg border border-indigo-500/30 hover:border-indigo-400 transition-all duration-300" alt="DeepShield Logo">
+                </a>
+                <div>
+                    <h1 class="text-white font-bold text-xl tracking-tight flex items-center gap-1.5">
+                        DeepShield <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-mono text-[8px] font-semibold uppercase tracking-widest px-1.5 py-0.5 rounded-md">AI</span>
+                    </h1>
+                    <p class="text-[9px] tracking-[0.2em] text-slate-500 font-mono">AI Media Authenticity Platform</p>
+                </div>
+            </div>
+            <a href="/" class="text-xs text-indigo-400 hover:text-indigo-300 transition-colors duration-200 font-mono"><i class="fa-solid fa-arrow-left mr-2"></i>Return Home</a>
+        </div>
+
+        <div class="space-y-8 text-sm leading-relaxed">
+            <section class="space-y-3">
+                <h3 class="text-white font-bold text-base font-mono flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> 1. Data Protection
+                </h3>
+                <p class="text-slate-400">
+                    DeepShield AI operates on a strict zero-retention capability policy for unauthenticated requests. Media files submitted for evaluation (images/videos) are buffered solely within secure volatile execution memory bounds during model inference. Transformed numerical tensor values are flushed immediately upon delivery of predictions.
+                </p>
+            </section>
+
+            <section class="space-y-3">
+                <h3 class="text-white font-bold text-base font-mono flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> 2. Privacy Controls
+                </h3>
+                <p class="text-slate-400">
+                    Facial bounding structures cropped during MTCNN mapping layers isolate regions of interest (ROI) exclusively for structural anomaly calculation. Biological coordinates are processed strictly inside sandboxed environments and are never correlated with identity verification data streams.
+                </p>
+            </section>
+
+            <section class="space-y-3">
+                <h3 class="text-white font-bold text-base font-mono flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> 3. Data Retention & Logging
+                </h3>
+                <div class="overflow-x-auto border border-[#1F2937] rounded-xl font-mono text-xs">
+                    <table class="w-full text-left">
+                        <thead class="bg-white/5 text-slate-400 border-b border-[#1F2937]">
+                            <tr>
+                                <th class="p-3">Data Segment</th>
+                                <th class="p-3">Retention Lifecycle</th>
+                                <th class="p-3">Encryption Type</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-[#1F2937] text-slate-400">
+                            <tr>
+                                <td class="p-3 font-semibold text-white">Media Ingestion Files</td>
+                                <td class="p-3">Temporary (Session-Only)</td>
+                                <td class="p-3">AES-256 GCM (At Rest)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-white">Forensic Probability Tensors</td>
+                                <td class="p-3">Immediate Purge (on render)</td>
+                                <td class="p-3">TLS 1.3 (In Transit)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-white">Transaction Logs</td>
+                                <td class="p-3">8 Runs (Local Cache)</td>
+                                <td class="p-3">Local Storage Encrypted</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="space-y-3">
+                <h3 class="text-white font-bold text-base font-mono flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> 4. Compliance Standards
+                </h3>
+                <p class="text-slate-400">
+                    DeepShield aligns with the European Union Artificial Intelligence Act specifications and GDPR compliance guidelines concerning biometric data handling, guaranteeing users transparency over model training weights and analytical auditability pathways.
+                </p>
+            </section>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

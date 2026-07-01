@@ -1,0 +1,16 @@
+flask
+torch
+torchvision
+numpy
+opencv-python
+pillow
+tqdm
+scikit-learn
+timm
+mysql-connector-python
+bcrypt
+pyjwt
+python-dotenv
+authlib
+resend
+requests

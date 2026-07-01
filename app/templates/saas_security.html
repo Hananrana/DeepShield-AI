@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Architecture & Compliance — DeepShield AI</title>
+    <link rel="icon" type="image/png" href="/static/images/logo.png" />
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        indigo: {
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        blue: {
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #030712;
+            font-family: 'Manrope', 'Inter', sans-serif;
+        }
+        .glass {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+        .hero-grid {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.005) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+    </style>
+</head>
+<body class="text-slate-300 min-h-full hero-grid relative py-16 px-6">
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-[10%] left-[10%] w-[600px] h-[600px] bg-blue-600/5 blur-[150px] rounded-full"></div>
+        <div class="absolute bottom-[20%] right-[10%] w-[600px] h-[600px] bg-indigo-600/5 blur-[150px] rounded-full"></div>
+    </div>
+
+    <div class="max-w-5xl mx-auto glass rounded-3xl p-8 sm:p-12 shadow-2xl relative z-10 bg-[#070b14]/80">
+        <!-- Header -->
+        <div class="flex items-center justify-between border-b border-white/5 pb-8 mb-10">
+            <div class="flex items-center gap-3">
+                <a href="/">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center shadow-[0_4px_15px_rgba(99,102,241,0.4)]">
+                        <i class="fa-solid fa-shield-halved text-white text-lg"></i>
+                    </div>
+                </a>
+                <div>
+                    <h1 class="text-white font-black text-xl tracking-tight flex items-center gap-1.5">
+                        DeepShield <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-mono text-[8px] font-semibold uppercase tracking-widest px-1.5 py-0.5 rounded-md">Security</span>
+                    </h1>
+                    <p class="text-[9px] tracking-[0.2em] text-slate-500 font-mono">Enterprise Integrity Architecture</p>
+                </div>
+            </div>
+            <a href="/" class="text-xs text-indigo-400 hover:text-indigo-300 transition-colors duration-200 font-mono flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Return Home
+            </a>
+        </div>
+
+        <!-- Title Section -->
+        <div class="space-y-4 mb-12">
+            <span class="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-mono font-semibold uppercase tracking-wider">
+                Compliance & Governance Standards
+            </span>
+            <h2 class="text-white text-3xl sm:text-4xl font-extrabold tracking-tight">
+                Bank-Grade Defense for Visual Assurances.
+            </h2>
+            <p class="text-slate-400 text-sm max-w-2xl leading-relaxed">
+                DeepShield's multi-layered infrastructure is designed to isolate, process, and secure media analysis payloads in compliance with global security regulations.
+            </p>
+        </div>
+
+        <!-- Compliance Badges Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+            <div class="p-5 rounded-2xl bg-white/5 border border-white/5 text-center flex flex-col items-center justify-center">
+                <div class="w-10 h-10 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3">
+                    <i class="fa-solid fa-square-check text-lg"></i>
+                </div>
+                <span class="text-white font-bold text-xs uppercase font-mono tracking-wider">SOC-2 Type II</span>
+                <span class="text-slate-500 text-[10px] mt-1 font-mono">Ready & Audited</span>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-white/5 border border-white/5 text-center flex flex-col items-center justify-center">
+                <div class="w-10 h-10 rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center mb-3">
+                    <i class="fa-solid fa-key text-lg"></i>
+                </div>
+                <span class="text-white font-bold text-xs uppercase font-mono tracking-wider">AES-256</span>
+                <span class="text-slate-500 text-[10px] mt-1 font-mono">Enforced at Rest</span>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-white/5 border border-white/5 text-center flex flex-col items-center justify-center">
+                <div class="w-10 h-10 rounded-full bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-3">
+                    <i class="fa-solid fa-lock text-lg"></i>
+                </div>
+                <span class="text-white font-bold text-xs uppercase font-mono tracking-wider">TLS 1.3 / mTLS</span>
+                <span class="text-slate-500 text-[10px] mt-1 font-mono">Perfect Forward Secrecy</span>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-white/5 border border-white/5 text-center flex flex-col items-center justify-center">
+                <div class="w-10 h-10 rounded-full bg-purple-500/10 text-purple-400 flex items-center justify-center mb-3">
+                    <i class="fa-solid fa-user-shield text-lg"></i>
+                </div>
+                <span class="text-white font-bold text-xs uppercase font-mono tracking-wider">GDPR</span>
+                <span class="text-slate-500 text-[10px] mt-1 font-mono">Zero-Retention Ingest</span>
+            </div>
+        </div>
+
+        <!-- Details Sections -->
+        <div class="space-y-10 text-sm leading-relaxed border-t border-white/5 pt-10">
+            <section class="space-y-4">
+                <h3 class="text-white font-bold text-lg font-mono flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> 1. Sandboxed Network Isolation
+                </h3>
+                <p class="text-slate-400 font-sans">
+                    All deep learning model inferences are processed in isolated, dedicated container networks (VPCs) with zero access to the public internet. Communication passes through strict API gateways authenticated via dynamic access tokens.
+                </p>
+            </section>
+
+            <section class="space-y-4">
+                <h3 class="text-white font-bold text-lg font-mono flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> 2. Enterprise Cryptography Controls
+                </h3>
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <div class="bg-slate-950/40 border border-white/5 p-6 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-3">
+                            <i class="fa-solid fa-arrow-right-arrow-left text-blue-400 text-base"></i>
+                            <h4 class="text-white font-bold text-sm uppercase tracking-wider font-mono">Data in Transit</h4>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            HTTPS connections enforce TLS 1.3 with SHA-384 certificate checks. Dynamic client certificates verify all internal node-to-node telemetry pipelines.
+                        </p>
+                    </div>
+                    <div class="bg-slate-950/40 border border-white/5 p-6 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-3">
+                            <i class="fa-solid fa-box-archive text-indigo-400 text-base"></i>
+                            <h4 class="text-white font-bold text-sm uppercase tracking-wider font-mono">Data at Rest</h4>
+                        </div>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            Upload storage nodes and localized database arrays are protected with custom AES-256 block-level encryption. Encryption keys are cycled daily via secure KMS infrastructure.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="space-y-4">
+                <h3 class="text-white font-bold text-lg font-mono flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500"></span> 3. Zero-Retention Policy
+                </h3>
+                <p class="text-slate-400 font-sans">
+                    To comply with global privacy standards, DeepShield enforces a strict zero-retention policy for visual media inputs. All uploaded images and video payloads are processed in memory and purged permanently within 5 minutes of verification report generation.
+                </p>
+            </section>
+        </div>
+    </div>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
